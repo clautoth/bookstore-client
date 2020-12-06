@@ -1,0 +1,85 @@
+<app-navbar></app-navbar>
+
+<div class="search">
+    <div class="container py-3">
+        <div class="row">
+            <input type="text" class="search-input col-md-10" placeholder="Search by title or author..."
+                id="filter" name="filter" [(ngModel)]="filterString">
+            <button class="btn btn-info col-md-2" (click)="filter()">Search</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="mt-5 ">
+        <div class="d-flex justify-content-between">
+            <h1>BOOK | DB</h1>
+
+            <!-- Add modal trigger button -->
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#add-modal">
+                Add new book
+            </button>
+        </div>
+
+        <!-- Add modal -->
+        <div class="modal fade" id="add-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form #addBookForm="ngForm" (ngSubmit)="addBook()">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Add new book</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input class="form-control" id="title" placeholder="Enter title"
+                                        name="title" [(ngModel)]="book.title">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="authorList">Authors</label>
+                                    <input class="form-control" id="authorList" placeholder="Enter the Authors, e.g. Klaudia Toth, Antal Czett"
+                                        name="authorList" [(ngModel)]="book.authorList">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <input class="form-control" id="description" placeholder="Enter the Description"
+                                    name="description" [(ngModel)]="book.description">
+                                </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" type="submit" class="btn btn-info">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4" *ngFor="let book of books | async">
+            <a (click)="navigateToSelectedBook(book.id)">
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <h4>
+                            {{ book.title }}
+                        </h4>
+                        <p>
+                            {{ book.authorList }}
+                        </p>
+                        <small>
+                            {{ book.description }}
+                        </small>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

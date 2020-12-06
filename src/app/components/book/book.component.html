@@ -1,0 +1,139 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-2" *ngIf="book">
+    <!-- MODIFY BOOK -->
+    <div class="row col-md-12 justify-content-between align-items-center">
+        <h1 class="my-5">
+            {{ book.title }}
+        </h1>
+        
+        <div class="row justify-content-end">
+            <!-- MODIFY -->
+            <div class="mb-3  mr-3">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modify-modal">
+                    Modify book
+                </button>
+        
+                <!-- Modal -->
+                <div class="modal fade" id="modify-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <form #modifyBookForm="ngForm" (ngSubmit)="modifyBook()">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Modify book</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+        
+                                    <div class="form-group">
+                                        <label for="title">Title</label>
+                                        <input class="form-control" id="title" placeholder="Enter title" name="title"
+                                            [(ngModel)]="book.title">
+                                    </div>
+        
+                                    <div class="form-group">
+                                        <label for="authorList">Authors</label>
+                                        <input class="form-control" id="authorList"
+                                            placeholder="Enter the Authors, e.g. Klaudia Toth, Antal Czett" name="authorList"
+                                            [(ngModel)]="book.authorList">
+                                    </div>
+        
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <input class="form-control" id="description" placeholder="Enter the Description"
+                                            name="description" [(ngModel)]="book.description">
+                                    </div>
+        
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" type="submit" class="btn btn-info">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- DELETE -->
+            <div class="mb-3">
+                <button class="btn btn-danger" (click)="deleteBook()">Delete book</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOK DATA -->
+    <div class="mb-5"> 
+        <h3 class="my-3 mb-3">A könyv adatai</h3>
+        <div class="row py-1">
+            <div class="col-sm-3">
+                <b><p>A könyv címe</p></b>
+            </div>
+            <div class="col-sm-9">
+                <p>
+                    {{ book.title }}
+                </p>
+            </div>
+        </div>
+        <div class="row py-1">
+            <div class="col-sm-3">
+                <b><p>A könyv szerzői</p></b>
+            </div>
+            <div class="col-sm-9">
+                <p>
+                    {{ book.authorList }}
+                </p>
+            </div>
+        </div>
+        <div class="row py-1">
+            <div class="col-sm-3">
+                <b><p>A könyv leírása</p></b>
+            </div>
+            <div class="col-sm-9">
+                <p>
+                    {{ book.description }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- RATING -->
+    <!-- <ngb-rating [(rate)]="currentRate" [max]="5" id="currentRate" (ratechange)="rateBook()" resettable="true"></ngb-rating>
+    <hr>
+    <pre>Rate: <b> {{currentRate}} / 5</b></pre> -->
+    <!-- <div class="container">
+        <span id="rateMe2" class="empty-stars"></span>
+    </div> -->
+
+    <!-- ADDTOLIST -->
+    <!-- <div>
+        <button class="btn btn-info" (click)="addBookToList()">Add book to a list</button>
+    </div> -->
+</div>
+
+<!-- COMMENTS -->
+<div class="comment py-3" *ngIf="book">
+    <div class="container my-3">
+        <h3>Kommentek</h3>
+    </div>
+
+    <div class="add-comment container py-3">
+        <div class="row col-md-12 mb-3">
+            <input type="text" class="search-input col-md-10" placeholder="Add new comment..." id="comment"
+                name="comment" [(ngModel)]="commentString">
+            <button class="btn btn-info col-md-2" (click)="addComment()">Add</button>
+        </div>
+    </div>
+    <div class="container">
+        <div *ngFor="let comment of book.comments">
+            <p>
+                <small>
+                    {{ comment }}
+                </small>
+            </p>
+        </div>
+    </div>
+</div>
+    
