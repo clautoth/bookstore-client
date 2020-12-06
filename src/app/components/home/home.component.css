@@ -6,6 +6,10 @@ a{
     height: 300px;
 }
 
+.card-body{
+    overflow: hidden;
+}
+
 .search {
     width: 100%;
     background-color: lightblue;
